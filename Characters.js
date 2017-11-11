@@ -1,5 +1,5 @@
 class Base{
-  constructor(name, health){
+  constructor(name, health, skills = {attack: 0, sneak: 0, persuade: 0}){
     this.name = name;
     this.maxHealth = health;
     this.currentHealth = health;
@@ -9,11 +9,7 @@ class Base{
       sneak: 10,
       persuade: 10
     };
-    this.skills = {
-      attack: 0,
-      sneak: 0,
-      persuade: 0
-    };
+    this.skills = skills;
   }
 
   attack(){
@@ -34,21 +30,22 @@ class Base{
 };
 
 class Hero extends Base{
-  constructor(name, health, gender, race, role){
-    super(name, health);
-    this.gender = gender;
-    this.race = race;
-    this.characterRole = role;
-    this.equippedWeapon = {
+  constructor(name, health, gender, race, role, skills,
+    weapon = {
       name: `None`,
       minDamage: null,
       maxDamage: null
-    };
-    this.equippedArmor = {
+    }, armor = {
       name: `None`,
       hitBarrierBonus: null
+    }){
+    super(name, health, skills);
+    this.gender = gender;
+    this.race = race;
+    this.characterRole = role;
+    this.equippedWeapon = weapon;
+    this.equippedArmor = armor;
     };
-  }
 
   levelUp(skill){
     this.maxHealth += Math.floor(Math.random() * 6) + 1;
@@ -67,6 +64,19 @@ class Hero extends Base{
     this.currentHealth = this.maxHealth;
     this.isIncapacitated = false;
   }
+};
+
+class Monster extends Base{
+  constructor(name, health, attackBarrier, persuasionBarrier, sneakBarrier, skills, minDamage, maxDamage){
+    super(name, health, skills);
+    this.barriers.attackBarrier = attackBarrier;
+    this.barriers.persuade = persuasionBarrier;
+    this.barriers.sneak = sneakBarrier;
+    this.equippedWeapon = {
+      minDamage: minDamage,
+      maxDamage: maxDamage
+    }
+  };
 };
 
 const checkClass = (hero, characterClass) => {
