@@ -103,6 +103,7 @@ const checkClass = (hero, characterClass) => {
       hero.skills.attack++;
       hero.skills.sneak++;
       hero.skills.persuade++;
+      break;
 
     default:
       characterClass = prompt(`${characterClass} is not a valid class. Please choose one of the following : Warrior, Rogue, Ranger`);
