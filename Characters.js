@@ -50,20 +50,26 @@ class Hero extends Base{
   levelUp(skill){
     this.maxHealth += Math.floor(Math.random() * 6) + 1;
     this.skills[skill] += 1;
-  }
+  };
 
   equipNewWeapon(newWeapon){
     this.equippedWeapon = newWeapon;
-  }
+  };
 
   equipNewArmor(newArmor){
     this.equippedArmor = newArmor;
-  }
+    if(this.equippedArmor.attackBarrierBonus){
+      this.barriers.attack -= this.equippedArmor.attackBarrierBonus;
+    }
+    if(newArmor.attackBarrierBonus){
+      this.barriers.attack += newArmor.attackBarrierBonus;
+    }
+  };
 
   rest(){
     this.currentHealth = this.maxHealth;
     this.isIncapacitated = false;
-  }
+  };
 };
 
 class Monster extends Base{

@@ -1,4 +1,4 @@
-let persuasionEncounter = (heroes, enemies) => {
+const persuasionEncounter = (heroes, enemies) => {
   let persuasionBarrier = 0;
   let persuasionPower = 0;
   enemies.forEach(enemy => {
@@ -10,7 +10,7 @@ let persuasionEncounter = (heroes, enemies) => {
   return persuasionPower >= persuasionBarrier;
 };
 
-let sneakEncounter = (heroes, enemies) => {
+const sneakEncounter = (heroes, enemies) => {
   let sneakBarrier = 0;
   let sneakPower = 0;
   enemies.forEach(enemy => {
@@ -48,7 +48,8 @@ const fightEncounter = (heroes, enemies, heroesFirst) => {
 
 function teamAttack (attackers, defenders) {
   let totalIncapacitated = 0;
-  const totalAvailableDefenders = 0;
+  let totalAvailableDefenders = 0;
+
   defenders.forEach(defender => {
     if(!defender.isIncapacitated){
       totalAvailableDefenders++;
@@ -97,3 +98,27 @@ let riddleEncounter = () => {
     return false;
   }
 };
+
+const decisionMaking = (answer) => {
+  let lowerAnswer = answer.toLowerCase();
+  let result;
+
+  switch(lowerAnswer) {
+    case `attack`:
+    result = fightEncounter(heroParty, enemies, true);
+    break;
+
+    case `sneak`:
+    result = sneakEncounter(heroParty, enemies);
+    break;
+
+    case `persuade`:
+    result = persuasionEncounter(heroParty, enemies);
+    break;
+
+    default:
+    return decisionMaking(prompt(`Please make sure you spell the choice correctly. Attack, sneak or persuade`));
+    break;
+  }
+  return result;
+}
